@@ -3,8 +3,6 @@ class Solution:
         total = {}
         up_to_now = {}
 
-        rabbits = 0
-
         for answer in answers:
             if answer not in total:
                 total[answer] = answer + 1
