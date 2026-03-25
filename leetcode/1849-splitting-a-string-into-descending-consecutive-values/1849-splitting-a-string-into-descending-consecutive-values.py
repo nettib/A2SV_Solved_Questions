@@ -1,17 +1,22 @@
 class Solution:
     def splitString(self, s: str) -> bool:
-        def backtrack(next, prev):
-            if next == len(s):
-                return True
+        path = []
+        def backtrack(idx):
+            if idx >= len(s):
+                for i in range(1, len(path)):
+                    if path[i] + 1 != path[i - 1]:
+                        return False
+                    
+                return len(path) >= 2
+            
 
-            for j in range(next, len(s)):
-                curr = int(s[next: j + 1])
-                if prev - 1 == curr and backtrack(j + 1, curr):
+            for i in range(idx, len(s)):
+                val = int(s[idx: i + 1])
+                path.append(val)
+                if backtrack(i + 1):
                     return True
+                path.pop()
             return False
-
-        for i in range(len(s) - 1):
-            start = int(s[: i + 1])
-            if backtrack(i + 1, start): return True
         
-        return False
+        return backtrack(0)
+                
