@@ -3,16 +3,19 @@ class Solution:
         ans = []
         comb = []
 
-        def backtrack(idx):
+        def backtrack(i):
             if len(comb) == k:
                 ans.append(comb[:])
                 return
+            if i > n:
+                return
 
-            for i in range(idx, n + 1):
-                comb.append(i)
-                backtrack(i + 1)
-                comb.pop()
-            
+            comb.append(i)
+            backtrack(i + 1)
+            comb.pop()
+            backtrack(i + 1)
+        
         backtrack(1)
 
         return ans
+
