@@ -2,8 +2,9 @@ class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         ans = []
         path = []
+        mark = len(nums)
         def backtrack(nums):
-            if len(nums) == 0:
+            if len(path) == mark:
                 ans.append(path.copy())
                 return
             
