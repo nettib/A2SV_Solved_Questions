@@ -1,8 +1,9 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        ans = [[]]
+        ans = []
         curr = []
         def get_subset(idx):
+            ans.append(curr[:])
             if idx == len(nums):
                 return
 
@@ -10,7 +11,6 @@ class Solution:
             for i in range(idx, len(nums)):
                 curr.append(nums[i])
                 get_subset(i + 1)
-                ans.append(curr[:])
                 curr.pop()
         
         get_subset(0)
