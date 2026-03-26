@@ -10,10 +10,11 @@ class Solution:
 
             for i in range(idx, len(s)):
                 val = int(s[idx: i + 1])
-                path.append(val)
-                if backtrack(i + 1):
-                    return True
-                path.pop()
+                if len(path) == 0 or val + 1 == path[-1]:
+                    path.append(val)
+                    if backtrack(i + 1):
+                        return True
+                    path.pop()
                 
             return False
         
