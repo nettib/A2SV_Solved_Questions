@@ -11,7 +11,7 @@ class Solution:
                 return
 
             for i in range(idx, len(nums)):
-                if idx != i and i > 0 and nums[i] == nums[i - 1]:
+                if idx != i and nums[i] == nums[i - 1]:
                     continue
                 subsets.append(nums[i])
                 backtrack(i + 1)
