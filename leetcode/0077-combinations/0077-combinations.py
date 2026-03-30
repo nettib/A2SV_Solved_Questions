@@ -2,20 +2,16 @@ class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         ans = []
         comb = []
-
-        def backtrack(i):
+        def backtrack(start):
             if len(comb) == k:
                 ans.append(comb[:])
                 return
-            if i > n:
-                return
 
-            comb.append(i)
-            backtrack(i + 1)
-            comb.pop()
-            backtrack(i + 1)
-        
+            for num in range(start, n + 1):
+                comb.append(num)
+                backtrack(num + 1)
+                comb.pop()
+            
         backtrack(1)
-
         return ans
 
