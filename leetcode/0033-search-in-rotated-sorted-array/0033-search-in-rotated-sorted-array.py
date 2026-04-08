@@ -26,8 +26,8 @@ class Solution:
         
         pivot = get_pivot(nums)
         if nums[-1] < target:
-            ans = bs(nums, 0, pivot, target)
+            return bs(nums, 0, pivot, target)
         else:
-            ans = bs(nums, pivot, len(nums) - 1, target)
+            return bs(nums, pivot, len(nums) - 1, target)
         
-        return ans
+        
