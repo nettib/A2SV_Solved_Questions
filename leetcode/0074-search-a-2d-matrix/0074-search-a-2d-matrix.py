@@ -25,7 +25,7 @@ class Solution:
                 l = m
                 r = m
             
-        if l == r:
-            return bs(matrix[l], target)
         
-        return False
+        return bs(matrix[l], target)
+        
+        # return False
