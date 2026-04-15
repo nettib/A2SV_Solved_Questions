@@ -8,8 +8,8 @@ class Solution:
             return count >= k
 
 
-        if sum(candies) < k:
-            return 0
+        # if sum(candies) < k:
+        #     return 0
 
         l, r = 1, max(candies)
         while l <= r:
