@@ -7,23 +7,25 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         heap = []
 
-        for _list in lists:
-            node = _list
-            while node:
-                heappush(heap, node.val)
-                node = node.next
+        for i, node in enumerate(lists):
+            if node:
+                heappush(heap, (node.val, i, node))
         
-        dummy = ListNode()
-        if len(heap) > 0:
-            head = ListNode(heappop(heap))
-            dummy.next = head
+        dummy = head = ListNode()
 
-        while len(heap) > 0:
-            head.next = ListNode(heappop(heap))
+
+        while heap:
+            val, i, node = heappop(heap)
+            head.next =  node
             head = head.next
+
+            if node.next:
+                heappush(heap, (node.next.val, i, node.next))
         
         return dummy.next
-        
+
+
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
