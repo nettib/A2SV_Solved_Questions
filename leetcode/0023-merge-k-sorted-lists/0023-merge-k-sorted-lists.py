@@ -5,33 +5,25 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        _list = []
+        heap = []
 
-        for head in lists:
-            while head:
-                _list.append(head.val)
-                head = head.next
+        for _list in lists:
+            node = _list
+            while node:
+                heappush(heap, node.val)
+                node = node.next
         
-
-        heapq.heapify(_list)
-
         dummy = ListNode()
-
-        if len(_list) > 0:
-            head = ListNode(heapq.heappop(_list))
+        if len(heap) > 0:
+            head = ListNode(heappop(heap))
             dummy.next = head
-        
-        while len(_list) > 0:
-            head.next = ListNode(heapq.heappop(_list))
+
+        while len(heap) > 0:
+            head.next = ListNode(heappop(heap))
             head = head.next
         
         return dummy.next
-
-
-
-
-
-
+        
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
