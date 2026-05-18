@@ -3,8 +3,8 @@ class Solution:
         heap = []
 
         for num in nums:
-            if len(heap) >= k:
-                if heap[0] < num:
+            if len(heap) == k:
+                if num > heap[0]:
                     heappop(heap)
                     heappush(heap, num)
             else:
