@@ -1,51 +1,40 @@
+class heapItem:
+    def __init__(self, word, freq):
+        self.word = word
+        self.freq = freq
+
+    def __lt__(self, other):
+        if self.freq != other.freq:
+            return self.freq < other.freq
+        
+        return self.word > other.word
+
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         track = {}
 
         for word in words:
-            if word not in track:
-                track[word] = 0
+            if word not in track: track[word] = 0
             track[word] += 1
-        
         
         heap = []
 
-        for val in track.values():
-            if len(heap) == k:
-                heappush(heap, max(val, heappop(heap)))
-            else:
-                heappush(heap, val)
-        
-        new_heap = set(heap)
-        new_track = {}
-
         for word in track:
-            if track[word] in new_heap:
-                if track[word] not in new_track:
-                    new_track[track[word]] = []
-                new_track[track[word]].append(word)
+            item = heapItem(word, track[word])
+
+            if len(heap) >= k:
+                if item > heap[0]:
+                    heappop(heap)
+                    heappush(heap, item)
+            else:
+                heappush(heap, item)
         
-        for freq in new_track:
-             new_track[freq] = sorted(new_track[freq])
-        
-        heap.sort(reverse=True)
         ans = []
-
-        for i in range(len(heap)):
-            if i != 0 and heap[i] == heap[i - 1]:
-                continue
-            for word in new_track[heap[i]]:
-                if len(ans) == k:
-                    return ans
-                ans.append(word)
-                
-        return ans
-
-
-                
-
-
-
+        while heap:
+            item = heappop(heap)
+            ans.append(item.word)
+        
+        return ans[::-1]
 
 
 
