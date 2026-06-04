@@ -8,21 +8,21 @@ class Solution:
             graph[v].append(u)
 
         # DFS
+        stack = [source]
         visited = set()
 
-        def dfs(node):
+        while stack:
+            node = stack.pop()
             if node == destination:
                 return True
 
-            visited.add(node)
             for nei in graph[node]:
                 if nei in visited:
                     continue
-                if dfs(nei):
-                    return True
-            return False
+                visited.add(nei)
+                stack.append(nei)
 
-        return dfs(source)
+        return False
         
 
 # Synced seamlessly with LeetHub Pro
