@@ -9,19 +9,18 @@ class Solution:
 
             for dr, dc in directions:
                 nr, nc = r + dr, c + dc
-                if (nr, nc) in visited or not inbound(nr, nc):
+                if not inbound(nr, nc):
                     continue
 
                 if grid[nr][nc] == "1":
-                    visited.add((nr, nc))
+                    grid[nr][nc] = "0"
                     dfs(nr, nc)
 
-        visited = set()
         islands = 0
         for r in range(len(grid)):
             for c in range(len(grid[0])):
-                if grid[r][c] == "1" and (r, c) not in visited:
-                    visited.add((r, c))
+                if grid[r][c] == "1":
+                    grid[r][c] = "0"
                     islands += 1
                     dfs(r, c)
 
