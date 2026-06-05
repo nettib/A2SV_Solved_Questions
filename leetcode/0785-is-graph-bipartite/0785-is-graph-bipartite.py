@@ -1,35 +1,41 @@
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-        # Coloring
-        color = [0] * len(graph)
+        colors = [-1] * len(graph)
+
+        def get_color(parent):
+            if colors[parent] == 0:
+                return 1
+            else:
+                return 0
 
         visited = set()
+
         def dfs(node):
-            
-            visited.add(node)
-            for neighbor in graph[node]:
-                if neighbor not in visited:
-                    if color[node] == "B":
-                        color[neighbor] = "W"
-                    else:
-                        color[neighbor] = "B"
-                    dfs(neighbor)
-        
+
+            for nei in graph[node]:
+                if nei in visited:
+                    if colors[node] == colors[nei]:
+                        return False
+                else:
+                    colors[nei] = get_color(node)
+                    visited.add(nei)
+                    if not dfs(nei):
+                        return False
+
+            return True
+
         for node in range(len(graph)):
-            if color[node] == 0:
-                color[node] = "B"
-                dfs(node)
-        
-        # checking if the graph is bipartite or not
-        for node in range(len(graph)):
-            c = color[node]
-            for neighbor in graph[node]:
-                if color[neighbor] == c:
+            if node not in visited:
+                colors[node] = 0
+                visited.add(node)
+                if not dfs(node):
                     return False
-        
+
         return True
-                
 
 
 
-                
+
+# Synced seamlessly with LeetHub Pro
+# Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+# Get it here: https://chromewebstore.google.com/detail/leethub-v4/bcilpkkbokcopmabingnndookdogmbna
