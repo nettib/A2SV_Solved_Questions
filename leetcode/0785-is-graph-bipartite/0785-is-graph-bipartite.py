@@ -2,12 +2,6 @@ class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
         colors = [-1] * len(graph)
 
-        def get_color(parent):
-            if colors[parent] == 0:
-                return 1
-            else:
-                return 0
-
         visited = set()
 
         def dfs(node):
@@ -17,7 +11,7 @@ class Solution:
                     if colors[node] == colors[nei]:
                         return False
                 else:
-                    colors[nei] = get_color(node)
+                    colors[nei] = 1 - colors[node]
                     visited.add(nei)
                     if not dfs(nei):
                         return False
