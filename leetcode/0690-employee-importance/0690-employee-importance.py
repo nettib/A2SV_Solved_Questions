@@ -6,27 +6,39 @@ class Employee:
         self.importance = importance
         self.subordinates = subordinates
 """
-from collections import defaultdict
+
 class Solution:
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        imp = defaultdict(int)
+        importance = defaultdict(int)
+        subordinates = defaultdict(list)
 
-        for employee in employees:
-            i, im, s = employee.id, employee.importance, employee.subordinates
-            imp[i] = im
-        
-        graph = defaultdict(list)
-        for employee in employees:
-            i, im, s = employee.id, employee.importance, employee.subordinates
-            graph[i] = s
-        
+        for e in employees:
+            importance[e.id] = e.importance
+            subordinates[e.id] = e.subordinates
+
+        visited = set()
         total = 0
-        def dfs(node):
+
+        def dfs(e):
             nonlocal total
 
-            total += imp[node]
-            for subordinate in graph[node]:
-                dfs(subordinate)
-        
+            for nei in subordinates[e]:
+                if nei in visited:
+                    continue
+                total += importance[nei]
+                visited.add(nei)
+                dfs(nei)
+
+        total += importance[id]
+        visited.add(id)
         dfs(id)
+
         return total
+            
+
+
+
+
+# Synced seamlessly with LeetHub Pro
+# Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+# Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
