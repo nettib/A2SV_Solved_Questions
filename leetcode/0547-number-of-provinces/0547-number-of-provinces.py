@@ -1,34 +1,34 @@
 class Solution:
-    def findCircleNum(self, cities: List[List[int]]) -> int:
-        adj = {}
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        graph = defaultdict(list)
 
-        for r in range(len(cities)):
-            for c in range(len(cities[0])):
-                if cities[r][c] == 1:
-                    if r not in adj: adj[r] = set()
-                    if c not in adj: adj[c] = set()
-                    adj[r].add(c)
-                    adj[c].add(r)
+        for r in range(len(isConnected)):
+            for c in range(len(isConnected)):
+                if r == c:
+                    continue
+                if isConnected[r][c]:
+                    graph[r].append(c)
         
-        for node in adj:
-            adj[node] = list(adj[node])
-
         visited = set()
         def dfs(node):
 
-            for nei in adj[node]:
-                if nei in visited: continue
+            for nei in graph[node]:
+                if nei in visited:
+                    continue
                 visited.add(nei)
                 dfs(nei)
         
         provinces = 0
-        for node in adj:
-            if node in visited: continue
+        for node in range(len(isConnected)):
+            if node in visited:
+                continue
+            visited.add(node)
             dfs(node)
             provinces += 1
         
         return provinces
 
+
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
-# Get it here: https://chromewebstore.google.com/detail/leethub-v4/bcilpkkbokcopmabingnndookdogmbna
+# Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
