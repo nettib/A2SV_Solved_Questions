@@ -27,7 +27,7 @@ class Solution:
             provinces += 1
         
         return provinces
-
+        
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
