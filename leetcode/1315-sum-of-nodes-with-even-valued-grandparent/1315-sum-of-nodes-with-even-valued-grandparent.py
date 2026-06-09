@@ -6,18 +6,23 @@
 #         self.right = right
 class Solution:
     def sumEvenGrandparent(self, root: Optional[TreeNode]) -> int:
-        cum = 0
-        def dfs(gp, p, node):
-            nonlocal cum
-            if not node:
-                return
-            
-            if gp and gp.val % 2 == 0:
-                cum += node.val
-            
-            dfs(p, node, node.left)
-            dfs(p, node, node.right)
-        
-        dfs(None, None, root)
-        return cum
+        _sum = 0
+        def dfs(node, parent, gparent):
+            nonlocal _sum
 
+            if not node:
+                return 
+
+            if gparent and gparent.val % 2 == 0:
+                _sum += node.val
+            
+            dfs(node.left, node, parent)
+            dfs(node.right, node, parent)
+        
+        dfs(root, None, None)
+        return _sum
+        
+
+# Synced seamlessly with LeetHub Pro
+# Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+# Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
