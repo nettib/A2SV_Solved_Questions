@@ -6,23 +6,24 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        ans = [root.val, 0]
-        def dfs(node, row):
-            nonlocal ans
-            if not node:
-                return None
-            
-            if row > ans[-1]:
-                ans = [node.val, row]
-            
-            if node.left:
-                dfs(node.left, row + 1)
-            if node.right:
-                dfs(node.right, row + 1)
-        
-        dfs(root, 0)
+        q = deque([root])
+        ans = None
 
-        return ans[0]
+        while q:
+            flag = 0
+            for _ in range(len(q)):
+                node = q.popleft()
+
+                if not flag:
+                    ans = node.val
+                    flag += 1
+                
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+        
+        return ans
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
