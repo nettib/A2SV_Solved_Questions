@@ -7,14 +7,13 @@
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         ans = 0
-        paths = []
+
         def dfs(node, path):
             nonlocal ans
 
             path.append(node.val)
 
             if not node.left and not node.right:
-                paths.append(path[:])
                 ans += int("".join(map(str, path)))
                 path.pop()
                 return
@@ -27,9 +26,8 @@ class Solution:
             path.pop()
 
         dfs(root, [])
-        print(paths)
         return ans
-        
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
