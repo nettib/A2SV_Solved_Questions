@@ -1,6 +1,6 @@
 class Solution:
     def highestPeak(self, grid: List[List[int]]) -> List[List[int]]:
-        height = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))] 
+        # height = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))] 
         
 
         directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
@@ -16,12 +16,13 @@ class Solution:
                 if grid[r][c] == 1:
                     q.append((r, c))
                     visited.add((r, c))
+                    grid[r][c] = 0
         h = 0        
         while q:
 
             for _ in range(len(q)):
                 r, c = q.popleft()
-                height[r][c] = h
+                grid[r][c] = h
 
                 for dr, dc in directions:
                     nr, nc = r + dr, c + dc
@@ -35,7 +36,7 @@ class Solution:
             
             h += 1
         
-        return height
+        return grid
 
 
 # Synced seamlessly with LeetHub Pro
