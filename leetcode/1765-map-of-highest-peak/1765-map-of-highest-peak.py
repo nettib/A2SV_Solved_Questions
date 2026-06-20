@@ -16,12 +16,12 @@ class Solution:
                 if grid[r][c] == 1:
                     q.append((r, c))
                     visited.add((r, c))
-        # h = 0        
+        h = 0        
         while q:
 
             for _ in range(len(q)):
                 r, c = q.popleft()
-                # height[r][c] = h
+                height[r][c] = h
 
                 for dr, dc in directions:
                     nr, nc = r + dr, c + dc
@@ -30,10 +30,10 @@ class Solution:
                         continue
                     
                     visited.add((nr, nc))
-                    height[nr][nc] = height[r][c] + 1
+                    # height[nr][nc] = height[r][c] + 1
                     q.append((nr, nc))
             
-            # h += 1
+            h += 1
         
         return height
 
