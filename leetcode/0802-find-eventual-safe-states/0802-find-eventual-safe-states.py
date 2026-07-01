@@ -13,20 +13,24 @@ class Solution:
         for node in range(len(degree)):
             if degree[node] == 0:
                 q.append(node)
-        
-        ans = []
-
+    
         while q:
             node = q.popleft()
-            ans.append(node)
 
             for nei in _graph[node]:
                 degree[nei] -= 1
 
                 if degree[nei] == 0:
                     q.append(nei)
-            
-        return sorted(ans)
+
+        ans = []
+
+        for node in range(len(degree)):
+            if degree[node] == 0:
+                ans.append(node)
+        
+        return ans
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
