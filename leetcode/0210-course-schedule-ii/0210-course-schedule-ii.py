@@ -1,41 +1,34 @@
-from collections import deque, defaultdict
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+    def findOrder(self, n: int, p: List[List[int]]) -> List[int]:
         graph = defaultdict(list)
-        has_dep = set()
+        degree = [0] * n
 
-        for c1, c2 in prerequisites:
+        for c1, c2 in p:
             graph[c2].append(c1)
-            has_dep.add(c1)
+            degree[c1] += 1
         
-        
-        indegree = defaultdict(int)
-
-        for c1, c2 in prerequisites:
-            indegree[c1] += 1
-
-
         q = deque([])
-
-        for c in range(numCourses):
-            if c not in has_dep:
-                q.append(c)
-
         ans = []
-        while q:
-            node = q.popleft()
-            ans.append(node)
-            for nei in graph[node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
-        
-        if len(ans) == numCourses:
-            return ans
-        return []
 
+        for course in range(n):
+            if degree[course] == 0:
+                q.append(course)
         
+        while q:
+            course = q.popleft()
+            ans.append(course)
+
+            for nei in graph[course]:
+                degree[nei] -= 1
+                if degree[nei] == 0:
+                    q.append(nei)
+
+        if len(ans) != n:
+            return []
+        return ans
+
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
-# Get it here: https://chromewebstore.google.com/detail/leethub-v4/bcilpkkbokcopmabingnndookdogmbna
+# Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
