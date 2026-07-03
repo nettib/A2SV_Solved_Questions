@@ -24,7 +24,6 @@ class Solution:
             if degree[nei] == 0:
                 q.append(nei)
 
-        print(degree)
         def dfs(node):
             nonlocal l
             l += 1
