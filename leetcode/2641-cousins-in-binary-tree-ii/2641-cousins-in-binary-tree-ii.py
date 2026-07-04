@@ -7,7 +7,6 @@
 class Solution:
     def replaceValueInTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         track = defaultdict(int)
-        graph = defaultdict(list)
 
         q = deque([root])
         d = 0
@@ -19,31 +18,11 @@ class Solution:
                 _sum += node.val
 
                 if node.left:
-                    graph[node].append(node.left)
                     q.append(node.left)
                 if node.right:
-                    graph[node].append(node.right)
                     q.append(node.right)
             track[d] = _sum
             d += 1
-        
-        # def dfs(node, parent, d):
-        #     if not node:
-        #         return 
-
-        #     _parent = node.val
-
-        #     if not parent:
-        #         node.val = 0
-        #     else:
-        #         node.val = track[d] - sum(graph[parent])
-
-        #     dfs(node.left, _parent, d + 1)
-        #     dfs(node.right, _parent, d + 1)
-        
-        # dfs(root, None, 0)
-
-        # return root
 
         def dfs(node, d):
             if not node:
