@@ -7,28 +7,22 @@ class Solution:
 
         starting_color = image[sr][sc]
 
-        image[sr][sc] = color
-
-        q = deque([(sr, sc)])
         visited = set([(sr, sc)])
 
-        while q:
-            r, c = q.popleft()
+        def dfs(r, c):
+            image[r][c] = color
 
             for dr, dc in directions:
                 nr, nc = r + dr, c + dc
+
                 if not inbound(nr, nc) or (nr, nc) in visited or image[nr][nc] != starting_color:
                     continue
                 
                 visited.add((nr, nc))
-                image[nr][nc] = color
-                q.append((nr, nc))
+                dfs(nr, nc)
         
-
+        dfs(sr, sc)
         return image
-                
-
-
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
