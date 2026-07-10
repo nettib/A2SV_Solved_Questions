@@ -7,20 +7,19 @@ class Solution:
         
 
         def dfs(r, c, idx):
-            if board[r][c] == word[idx] and idx == len(word) - 1:
-                return True
             if board[r][c] != word[idx]:
                 return False
+            if idx == len(word) - 1:
+                return True
             
+            board[r][c] = "#"
             for dr, dc in directions:
                 nr, nc = r + dr, c + dc
-                if not inbound(nr, nc) or (nr, nc) in visited:
+                if not inbound(nr, nc) or board[nr][nc] == "#":
                     continue
-                
-                visited.add((nr, nc))
                 if dfs(nr, nc, idx + 1):
                     return True
-                visited.remove((nr, nc))
+            board[r][c] = word[idx]
             
             return False
         
@@ -28,7 +27,6 @@ class Solution:
         for r in range(len(board)):
             for c in range(len(board[0])):
                 if board[r][c] == word[0]:
-                    visited = set([(r, c)])
                     if dfs(r, c, 0):
                         return True
         
