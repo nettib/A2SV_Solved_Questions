@@ -7,31 +7,34 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        if k == 0:
+            return [target.val]
         graph = defaultdict(list)
 
-        def tree_to_graph(node, parent):
+        def dfs(node):
             if not node:
                 return
-
-            if parent:
-                graph[parent.val].append(node.val)
-                graph[node.val].append(parent.val)
-
-            tree_to_graph(node.left, node)
-            tree_to_graph(node.right, node)
-
-        tree_to_graph(root, None)
-
+            
+            if node.left:
+                graph[node.val].append(node.left.val)
+                graph[node.left.val].append(node.val)
+                dfs(node.left)
+            if node.right:
+                graph[node.val].append(node.right.val)
+                graph[node.right.val].append(node.val)
+                dfs(node.right)
+            
+            
+        dfs(root)
+        
         q = deque([target.val])
-        visited = {target.val}
-        ans = []
+        visited = set([target.val])
 
+        ans = []
         while q:
             k -= 1
             for _ in range(len(q)):
                 node = q.popleft()
-                if k < 0:
-                    ans.append(node)
 
                 for nei in graph[node]:
                     if nei in visited:
@@ -39,10 +42,16 @@ class Solution:
                     visited.add(nei)
                     q.append(nei)
 
-            if k < 0:
+                    if not k:
+                        ans.append(nei)
+            
+            if not k:
                 return ans
-
+    
+        
         return ans
+            
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
