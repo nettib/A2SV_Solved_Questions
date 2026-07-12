@@ -8,36 +8,23 @@ class Employee:
 """
 
 class Solution:
-    def getImportance(self, employees: List['Employee'], id: int) -> int:
-        importance = defaultdict(int)
-        subordinates = defaultdict(list)
+    def getImportance(self, employees: List['Employee'], _id: int) -> int:
+        track = {}
 
-        for e in employees:
-            importance[e.id] = e.importance
-            subordinates[e.id] = e.subordinates
+        for employee in employees:
+            track[employee.id] = employee
+        
+        importance = 0
+        def dfs(employee):
+            nonlocal importance
 
-        visited = set()
-        total = 0
+            importance += employee.importance
 
-        def dfs(e):
-            nonlocal total
-
-            for nei in subordinates[e]:
-                if nei in visited:
-                    continue
-                total += importance[nei]
-                visited.add(nei)
-                dfs(nei)
-
-        total += importance[id]
-        visited.add(id)
-        dfs(id)
-
-        return total
-            
-
-
-
+            for sub in employee.subordinates:
+                dfs(track[sub])
+        
+        dfs(track[_id])
+        return importance
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
