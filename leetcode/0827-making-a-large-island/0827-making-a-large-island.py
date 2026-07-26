@@ -4,7 +4,6 @@ class Solution:
 
         def inbound(r, c):
             return 0 <= r < len(grid) and 0 <= c < len(grid[0])
-        
 
         track = {}
 
@@ -46,7 +45,6 @@ class Solution:
                         
                         nei.add(grid[nr][nc])
                     
-                    print(nei)
                     _sum = 0
                     for _id in nei:
                         _sum += track[_id]
