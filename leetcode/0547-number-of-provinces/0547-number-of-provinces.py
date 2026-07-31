@@ -1,33 +1,29 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+    def findCircleNum(self, grid: List[List[int]]) -> int:
         graph = defaultdict(list)
 
-        for r in range(len(isConnected)):
-            for c in range(len(isConnected)):
-                if r == c:
-                    continue
-                if isConnected[r][c]:
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 1:
                     graph[r].append(c)
-        
-        visited = set()
+                
+
         def dfs(node):
+            visited.add(node)
 
             for nei in graph[node]:
                 if nei in visited:
                     continue
-                visited.add(nei)
                 dfs(nei)
         
+        visited = set()
         provinces = 0
-        for node in range(len(isConnected)):
-            if node in visited:
-                continue
-            visited.add(node)
-            dfs(node)
-            provinces += 1
+        for node in range(len(grid)):
+            if grid[node][node] == 1 and node not in visited:
+                dfs(node)
+                provinces += 1
         
         return provinces
-        
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
