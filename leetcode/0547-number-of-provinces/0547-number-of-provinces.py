@@ -1,43 +1,43 @@
-class UnionFind:
+class DSU:
     def __init__(self, size):
         self.parent = {i: i for i in range(size)}
-        self.rank = [0] * size
+        self.size = [1] * size
+        self.components = size
     
-    def find(self, x):
-        if x == self.parent[x]:
-            return x
+    def find(self, city):
+        if city == self.parent[city]:
+            return city
+        
+        self.parent[city] = self.find(self.parent[city])
+        return self.parent[city]
+    
+    def union(self, c1, c2):
+        pc1 = self.find(c1)
+        pc2 = self.find(c2)
 
-        self.parent[x] = self.find(self.parent[x])
-        return self.parent[x]
-
-    def union(self, x, y):
-        px = self.find(x)
-        py = self.find(y)
-
-        if px != py:
-            if self.rank[px] == self.rank[py]:
-                self.parent[py] = px
-                self.rank[px] += 1
-            elif self.rank[px] > self.rank[py]:
-                self.parent[py] = px
+        if pc1 != pc2:
+            self.components -= 1
+            if self.size[pc1] > self.size[pc2]:
+                self.parent[pc2] = pc1
+                self.size[pc1] += self.size[pc2]
             else:
-                self.parent[px] = py
-
+                self.parent[pc1] = pc2
+                self.size[pc2] += self.size[pc1]
 
 class Solution:
     def findCircleNum(self, grid: List[List[int]]) -> int:
-        graph = UnionFind(len(grid))
+        n = len(grid)
+        graph = DSU(n)
 
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
+        for r in range(n):
+            for c in range(n):
                 if r != c and grid[r][c] == 1:
                     graph.union(r, c)
+                    grid[r][c] = 0
+                    grid[c][r] = 0
         
-        track = set()
-        for node in range(len(grid)):
-            track.add(graph.find(node))
+        return graph.components
         
-        return len(track)
         
 
 # Synced seamlessly with LeetHub Pro
