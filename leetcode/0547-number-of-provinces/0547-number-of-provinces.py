@@ -19,7 +19,7 @@ class Solution:
         visited = set()
         provinces = 0
         for node in range(len(grid)):
-            if grid[node][node] == 1 and node not in visited:
+            if node not in visited:
                 dfs(node)
                 provinces += 1
         
