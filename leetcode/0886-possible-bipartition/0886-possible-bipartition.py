@@ -11,15 +11,12 @@ class Solution:
             visited.add(node)
 
             for nei in graph[node]:
+                if groups[nei] == groups[node]:
+                    return False
                 if nei in visited:
-                    if groups[nei] == groups[node]:
-                        return False
                     continue
 
-                if groups[node]:
-                    groups[nei] = 0
-                else:
-                    groups[nei] = 1
+                groups[nei] = 1 - groups[node]
 
                 if not dfs(nei):
                     return False
@@ -29,10 +26,11 @@ class Solution:
         visited = set()
 
         for node in range(1, n + 1):
-            if node not in visited:
-                groups[node] = 1
-                if not dfs(node):
-                    return False
+            if node in visited:
+                continue
+            groups[node] = 1
+            if not dfs(node):
+                return False
         
         return True
 
