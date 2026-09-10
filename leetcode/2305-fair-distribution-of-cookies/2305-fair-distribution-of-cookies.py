@@ -4,7 +4,7 @@ class Solution:
 
         def backtrack(idx, children):
             nonlocal ans
-            if max(children) > ans:
+            if max(children) >= ans:
                 return
             if idx >= len(cookies):
                 ans = min(ans, max(children))
