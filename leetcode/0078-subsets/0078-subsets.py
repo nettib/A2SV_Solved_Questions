@@ -3,19 +3,18 @@ class Solution:
         ans = []
 
         def backtrack(idx, curr):
-            ans.append(curr[:])
             if idx >= len(nums):
+                ans.append(curr[:])
                 return
 
 
-            for i in range(idx, len(nums)):
-                curr.append(nums[i])
-                backtrack(i + 1, curr)
-                curr.pop()
-        
+            curr.append(nums[idx])
+            backtrack(idx + 1, curr)
+            curr.pop()
+            backtrack(idx + 1, curr)
+
         backtrack(0, [])
         return ans
-
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
