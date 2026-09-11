@@ -10,6 +10,7 @@ class Solution:
 
             curr.append(nums[idx])
             backtrack(idx + 1, curr)
+            
             curr.pop()
             backtrack(idx + 1, curr)
 
