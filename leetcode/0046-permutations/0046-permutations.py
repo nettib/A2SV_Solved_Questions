@@ -1,20 +1,23 @@
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
+    def permute(self, nums: list[int]) -> list[list[int]]:
         ans = []
-        path = []
-        mark = len(nums)
-        def backtrack(nums):
-            if len(path) == mark:
-                ans.append(path.copy())
+        _len = len(nums)
+
+        def backtrack(nums, path):
+            if len(path) == _len:
+                ans.append(path[:])
                 return
             
+
             for i in range(len(nums)):
                 path.append(nums[i])
-                backtrack(nums[:i] + nums[i + 1:])
+                backtrack(nums[:i] + nums[i + 1:], path)
                 path.pop()
+            
+        backtrack(nums, [])
 
-        backtrack(nums)
-        
-        return ans
-            
-            
+        return ans 
+
+# Synced seamlessly with LeetHub Pro
+# Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+# Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
