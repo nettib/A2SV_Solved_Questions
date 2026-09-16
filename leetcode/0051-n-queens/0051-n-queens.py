@@ -1,33 +1,38 @@
 class Solution:
-    def solveNQueens(self, n):
+    def solveNQueens(self, n: int) -> list[list[str]]:
         ans = []
-        trial = []
-        template = ['.'] * n
+        path = [["." for _ in range(n)] for _ in range(n)]
+        cols = set()
+        diag = set()
+        anti = set()
 
-        def backtrack(r, cols, m_diag, o_diag):
-            if r >= n:
-                ans.append(trial[:])
+        def backtrack(r):
+            if r == n:
+                ans.append(["".join(path[r]) for r in range(n)])
                 return
-
+            
             for c in range(n):
-                if c not in cols and (r + c) not in m_diag and (r - c) not in o_diag:
-                    # DO
-                    temp = template[:]
-                    temp[c] = "Q"
-                    trial.append("".join(temp))
-
+                if c not in cols and r + c not in diag and r - c not in anti:
+                    path[r][c] = "Q"
                     cols.add(c)
-                    m_diag.add(r + c)
-                    o_diag.add(r - c)
+                    diag.add(r + c)
+                    anti.add(r - c)
 
-                    # RECURSE
-                    backtrack(r + 1, cols, m_diag, o_diag)
+                    backtrack(r + 1)
 
-                    # UNDO (this was missing in your code)
-                    trial.pop()
+                    path[r][c] = "."
                     cols.remove(c)
-                    m_diag.remove(r + c)
-                    o_diag.remove(r - c)
+                    diag.remove(r + c)
+                    anti.remove(r - c)
+            
+        backtrack(0)
 
-        backtrack(0, set(), set(), set())
         return ans
+            
+
+
+
+
+# Synced seamlessly with LeetHub Pro
+# Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
+# Get it here: https://chromewebstore.google.com/detail/bcilpkkbokcopmabingnndookdogmbna
