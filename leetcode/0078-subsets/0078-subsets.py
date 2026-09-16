@@ -1,20 +1,20 @@
 class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
+    def subsets(self, nums: list[int]) -> list[list[int]]:
         ans = []
 
-        def backtrack(idx, curr):
-            if idx >= len(nums):
-                ans.append(curr[:])
+        def backtrack(i, path):
+            if i == len(nums):
+                ans.append(path[:])
                 return
-
-
-            curr.append(nums[idx])
-            backtrack(idx + 1, curr)
             
-            curr.pop()
-            backtrack(idx + 1, curr)
+
+            path.append(nums[i])
+            backtrack(i + 1, path)
+            path.pop()
+            backtrack(i + 1, path)
 
         backtrack(0, [])
+
         return ans
 
 # Synced seamlessly with LeetHub Pro
