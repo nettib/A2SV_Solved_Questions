@@ -1,19 +1,21 @@
 class Solution:
     def subsets(self, nums: list[int]) -> list[list[int]]:
         ans = []
+        curr = []
 
-        def backtrack(i, path):
-            if i == len(nums):
-                ans.append(path[:])
+        def backtrack(idx):
+            if idx >= len(nums):
+                ans.append(curr.copy())
                 return
-            
 
-            path.append(nums[i])
-            backtrack(i + 1, path)
-            path.pop()
-            backtrack(i + 1, path)
 
-        backtrack(0, [])
+            curr.append(nums[idx])
+            backtrack(idx + 1)
+            curr.pop()
+            backtrack(idx + 1)
+
+        
+        backtrack(0)
 
         return ans
 
