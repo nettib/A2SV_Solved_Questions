@@ -1,21 +1,22 @@
 class Solution:
-    def combine(self, n: int, k: int) -> List[List[int]]:
+    def combine(self, n: int, k: int) -> list[list[int]]:
         ans = []
+        curr = []
 
-        def backtrack(num, curr):
+        def backtrack(cand):
             if len(curr) == k:
                 ans.append(curr[:])
                 return
-            if num > n:
-                return
 
-            curr.append(num)
-            backtrack(num + 1, curr)
-            curr.pop()
-            backtrack(num + 1, curr)
+
+            for num in range(cand, n + 1):
+                curr.append(num)
+                backtrack(num + 1)
+                curr.pop()
         
-        backtrack(1, [])
+        backtrack(1)
         return ans
+
 
 
 # Synced seamlessly with LeetHub Pro
