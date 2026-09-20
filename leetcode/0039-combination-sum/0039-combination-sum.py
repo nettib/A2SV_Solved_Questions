@@ -10,7 +10,6 @@ class Solution:
             if _sum > target or idx >= len(nums):
                 return
 
-            
             curr.append(nums[idx])
             backtrack(idx, _sum + nums[idx])
             curr.pop()
