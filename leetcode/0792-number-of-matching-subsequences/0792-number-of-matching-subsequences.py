@@ -17,19 +17,14 @@ class Solution:
 
             l, r = 0, len(idx_list) - 1
 
-            # for idx in idx_list:
-            #     if idx > prev_char_idx:
-            #         return idx
-            temp = -1
             while l <= r:
                 m = l + ((r - l) // 2)
                 if idx_list[m] > prev_char_idx:
-                    temp = idx_list[m]
                     r = m - 1
                 else:
                     l = m + 1
             
-            return temp
+            return idx_list[l] if 0 <= l < len(idx_list) else -1
             
 
         
