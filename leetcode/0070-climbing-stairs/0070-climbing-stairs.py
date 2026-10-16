@@ -1,16 +1,16 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        track = {}
-
-        def ways(i):
-            if i >= n - 1:
-                return 1
-            if i not in track:
-                track[i] = ways(i + 1) + ways(i + 2)
-            
-            return track[i]
+        memo = {}
         
-        return ways(0)
+        def ways(n):
+            if n <= 1:
+                return 1
+            if n not in memo:
+                memo[n] = ways(n - 1) + ways(n - 2)
+            
+            return memo[n]
+
+        return ways(n)
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
