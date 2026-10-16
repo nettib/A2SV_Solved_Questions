@@ -1,16 +1,16 @@
 class Solution:
     def rob(self, nums: list[int]) -> int:
-        track = {}
-        
-        def best(i):
-            if i < 0:
-                return 0
-            if i not in track:
-                track[i] = max(best(i - 1), nums[i] + best(i - 2))
+        memo = {}
 
-            return track[i]
+        def solve(i):
+            if i >= len(nums):
+                return 0
+            if i not in memo:
+                memo[i] = max(solve(i + 1) , nums[i] + solve(i + 2))
+
+            return memo[i]
         
-        return best(len(nums) - 1)
+        return solve(0)
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
