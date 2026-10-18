@@ -18,20 +18,20 @@ class Solution:
         
         dfs(root)
         
-        def build_bst(curr):
-            if len(curr) == 0:
+        def build_bst(curr, l, r):
+            if l > r:
                 return
             
-            m = 0 + ((len(curr) - 0) // 2)
+            m = l + ((r - l) // 2)
 
             node = TreeNode(val=curr[m])
 
-            node.left = build_bst(curr[:m])
-            node.right = build_bst(curr[m + 1:])
+            node.left = build_bst(curr, l, m - 1)
+            node.right = build_bst(curr, m + 1, r)
         
             return node
         
-        return build_bst(order)
+        return build_bst(order, 0, len(order) - 1)
         
 
 
