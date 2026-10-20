@@ -19,9 +19,15 @@ class Solution:
                 dfs(nr, nc)
 
 
-        for r in range(len(grid)):
+        for r in [0, len(grid) - 1]:
             for c in range(len(grid[0])):
-                if (r == 0 or r == len(grid) - 1 or c == 0 or c == len(grid[0]) - 1) and grid[r][c] == 0:
+                if grid[r][c] == 0:
+                    grid[r][c] = -1
+                    dfs(r, c)
+        
+        for r in range(len(grid)):
+            for c in [0, len(grid[0]) - 1]:
+                if grid[r][c] == 0:
                     grid[r][c] = -1
                     dfs(r, c)
         
