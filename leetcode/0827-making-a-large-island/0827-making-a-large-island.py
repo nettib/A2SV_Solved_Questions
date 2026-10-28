@@ -16,19 +16,15 @@ class Solution:
             for dr, dc in directions:
                 nr, nc = r + dr, c + dc
 
-                if not inbound(nr, nc) or (nr, nc) in visited or grid[nr][nc] == 0:
+                if not inbound(nr, nc) or grid[nr][nc] != 1:
                     continue
                 
-                visited.add((nr, nc))
                 dfs(nr, nc, mark)
 
-
-        visited = set()
         mark = 2
         for r in range(n):
             for c in range(n):
-                if grid[r][c] == 1 and not (r, c) in visited:
-                    visited.add((r, c))
+                if grid[r][c] == 1:
                     _hash[mark] = 0
                     dfs(r, c, mark)
                     mark += 1
