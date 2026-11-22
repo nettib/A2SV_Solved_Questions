@@ -8,7 +8,7 @@ class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-
+            
         q = deque([root])
         ans = []
 
@@ -22,11 +22,10 @@ class Solution:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
-            ans.append(temp)
+            ans.append(temp[:])
         
         return ans[::-1]
                 
-
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
