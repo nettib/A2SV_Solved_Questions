@@ -5,23 +5,42 @@
 #         self.next = next
 class Solution:
     def removeNodes(self, head: ListNode | None) -> ListNode | None:
-        arr = []
+        # Reversing the linkedlist
+        def reverse_linked_list(head):
+            curr = head
+            prev = None
+            _next = head.next
 
-        curr = head
+            while curr:
+                curr.next = prev
+                prev = curr
+                curr = _next
+                if curr:
+                    _next = curr.next
+            
+            return prev
 
-        while curr:
-            while arr and arr[-1] < curr.val:
-                arr.pop()
-            arr.append(curr.val)
-            curr = curr.next
-        
-        head = ListNode()
+        head = reverse_linked_list(head)
         curr = head
-        for val in arr:
-            curr.next = ListNode(val)
-            curr = curr.next
+        _next = curr.next
+
+        while _next:
+            if curr.val <= _next.val:
+                curr.next = _next
+                curr = _next
+                _next = curr.next
+            else:
+                _next = _next.next
         
-        return head.next
+        curr.next = None
+    
+        return reverse_linked_list(head)
+
+
+        
+        
+
+
 
 # Synced seamlessly with LeetHub Pro
 # Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
